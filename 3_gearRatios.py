@@ -17,6 +17,7 @@ def isCharacter(s: str):
    else:
       return False
    
+   
 def isPart(row, col, engine_matrix):
    """
    Checks if a number is an engine part.
@@ -42,6 +43,7 @@ def isPart(row, col, engine_matrix):
             break
    
    return part
+
 
 def processGears(engine_matrix):
    """
@@ -93,6 +95,7 @@ def findGears(engine_matrix):
          gear_product += int(gears[gear][0]) * int(gears[gear][1])
 
    return gear_product
+
 
 def engine(engine_matrix: list):
    number_dict = {}
