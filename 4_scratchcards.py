@@ -1,8 +1,13 @@
 def conversion(card:list):
+    """
+    Cleans up and converts a list of strings to a list of integers.
+    """
     n1 = 0
     while n1 < len(card):
+        # clean up empty strings
         if card[n1] == '':
             del(card[n1])
+        
         else:
             card[n1] = int(card[n1])
             n1 += 1
@@ -11,14 +16,20 @@ def conversion(card:list):
 
 
 def getCardValue(line:str, part):
-    value = 0
-    winning = line[9:].split(' | ')[0].split(' ')
-    owned = line[9:].split(' | ')[1].split(' ')
+    """
+    Part 1 - Returns number of points scored by given card
+    Part 2 - Returns number of cards won
+    """
+    # Convert input string into list of numbers
+    winning = line[9:].strip().split(' | ')[0].split(' ')
+    owned = line[9:].strip().split(' | ')[1].split(' ')
     
     winning = conversion(winning)
     owned = conversion(owned)
 
+    # Number of points scored
     if part == 1:
+        value = 0
         for win in winning:
             if win in owned:
                 if value == 0:
@@ -28,52 +39,39 @@ def getCardValue(line:str, part):
 
         return value
     
+    # Number of cards won
     else:
         won = 0
         for win in winning:
             if win in owned:
                 won += 1
         
-        return 0
-    
-global memo
-memo = {}
-
-def cardCounting(cards, index):
-    won_now = getCardValue(cards[index])
-    if won_now == 0:
-        return 0
-    
-    else:
-        won = 0
-        for i in range(1, won_now + 1):
-            if index + i in memo:
-                return memo[index + i]
-            else:
-                won += cardCounting(cards, index + i) + 1
-                if index + 1 not in memo:
-                    memo[index + i] = won
-            
         return won
-
+    
 
 def main():
-    fin = open(r'C:\Users\HP\OneDrive - fer.hr\UPRO\AoC\input_4.txt')
-    part = 2
+    fin = open('input4.txt')
+    part = 1
+
+    card_sum = 0
 
     if part == 1:
-        card_sum = 0
         for line in fin.readlines():
             card_sum += getCardValue(line, part)
 
     else:
         cards = fin.readlines()
-        card_sum = 0
-        for i in range(len(cards)):
-            won = getCardValue(cards[i])
-            card_sum += cardCounting(cards, i)
 
-        card_sum += len(cards)
+        # Add all won cards to a list of card counters
+        won_cards = [1 for j in range(len(cards))]
+        
+        for i in range(len(cards)):
+            won = getCardValue(cards[i], 2)
+            for j in range(1, won + 1):
+                won_cards[i + j] += won_cards[i]
+
+        for i in range(len(cards)):
+            card_sum += won_cards[i]
 
     print(card_sum)
 
