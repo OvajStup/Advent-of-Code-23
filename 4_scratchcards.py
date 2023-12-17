@@ -51,7 +51,7 @@ def getCardValue(line:str, part):
 
 def main():
     fin = open('input4.txt')
-    part = 1
+    part = 2
 
     card_sum = 0
 
@@ -70,8 +70,7 @@ def main():
             for j in range(1, won + 1):
                 won_cards[i + j] += won_cards[i]
 
-        for i in range(len(cards)):
-            card_sum += won_cards[i]
+        card_sum = sum(won_cards)
 
     print(card_sum)
 

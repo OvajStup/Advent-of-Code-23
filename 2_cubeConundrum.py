@@ -36,8 +36,8 @@ def cubeCount(line:str, r_max: int, g_max: int, b_max: int, part: int):
 
 
 def main():
-   fin = open("D:\Programi\Python\Advent of Code_2023\input2.txt")
-   part = 2 # part of the task we wish to observe (1 or 2)
+   fin = open("input2.txt")
+   part = 1 # part of the task we wish to observe (1 or 2)
 
    # Maximum number of each colour cubes allowed
    r_max = 12 
