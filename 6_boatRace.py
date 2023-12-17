@@ -1,4 +1,8 @@
 def finProcessing(fin, part):
+   """
+   Converts input file into usable form depending on task part.
+   """
+   # Variable formatting
    lines = fin.readlines()
    races = []
    
@@ -8,6 +12,7 @@ def finProcessing(fin, part):
    records = lines[1][9:].strip().split(' ')
    records = [record.strip() for record in records]
    
+   # Remove unnecessary bits left over from splitting and such
    for item in range(len(time) - 1, -1, -1):
       if time[item] == '':
          del(time[item])
@@ -20,11 +25,14 @@ def finProcessing(fin, part):
       else:
          records[item] = int(records[item])
 
+   # Generation of "races" list
    if part == 1:
+      # Add all races to list
       for item in range(len(time)):
          races.append((time[item], records[item]))
    
    elif part == 2:
+      # Concatenate all data to get one big race
       time_act = ''
       for t in time:
          time_act += str(t)
@@ -39,7 +47,11 @@ def finProcessing(fin, part):
 
 
 def raceVariations(races):
+   """
+   Finds all possible winning variations for each race and multiplies them.
+   """
    race_variations = []
+   # Find winning variations
    for race in races:
       counter = 0
       time = race[0]
@@ -51,6 +63,7 @@ def raceVariations(races):
       
       race_variations.append(counter)
    
+   # Generate race product
    product = 1
    for race in race_variations:
       product *= race
