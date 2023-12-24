@@ -72,7 +72,7 @@ def raceVariations(races):
 
 
 def main():
-   fin = open('input6.txt')
+   fin = open('input06.txt')
    part = 2
 
    races = finProcessing(fin, part)
